@@ -257,7 +257,7 @@ impl FileWrite for opendal::Writer {
     }
 
     async fn close(&mut self) -> crate::Result<()> {
-        Ok(opendal::Writer::close(self).await?)
+        Ok(opendal::Writer::close(self).await.map(|_|())?)
     }
 }
 
