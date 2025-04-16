@@ -50,6 +50,18 @@ pub struct ManifestFileMeta {
     /// schema id when writing this manifest file.
     #[serde(rename = "_SCHEMA_ID")]
     schema_id: i64,
+
+    #[serde(rename = "_MIN_BUCKET", skip_serializing_if = "Option::is_none")]
+    min_bucket: Option<i32>,
+
+    #[serde(rename = "_MAX_BUCKET", skip_serializing_if = "Option::is_none")]
+    max_bucket: Option<i32>,
+
+    #[serde(rename = "_MIN_LEVEL", skip_serializing_if = "Option::is_none")]
+    min_level: Option<i32>,
+
+    #[serde(rename = "_MAX_LEVEL", skip_serializing_if = "Option::is_none")]
+    max_level: Option<i32>,
 }
 
 impl ManifestFileMeta {
@@ -95,6 +107,43 @@ impl ManifestFileMeta {
     }
 
     #[inline]
+    pub fn min_bucket(&self) -> Option<i32> {
+        self.min_bucket
+    }
+
+    #[inline]
+    pub fn max_bucket(&self) -> Option<i32> {
+        self.max_bucket
+    }
+    #[inline]
+    pub fn min_level(&self) -> Option<i32> {
+        self.min_level
+    }
+    #[inline]
+    pub fn max_level(&self) -> Option<i32> {
+        self.max_level
+    }
+    pub fn with_min_bucket(mut self, min_bucket: Option<i32>) -> Self {
+        self.min_bucket = min_bucket;
+        self
+    }
+
+    pub fn with_max_bucket(mut self, max_bucket: Option<i32>) -> Self {
+        self.max_bucket = max_bucket;
+        self
+    }
+
+    pub fn with_min_level(mut self, min_level: Option<i32>) -> Self {
+        self.min_level = min_level;
+        self
+    }
+
+    pub fn with_max_level(mut self, max_level: Option<i32>) -> Self {
+        self.max_level = max_level;
+        self
+    }
+
+    #[inline]
     pub fn new(
         file_name: String,
         file_size: i64,
@@ -111,6 +160,10 @@ impl ManifestFileMeta {
             num_deleted_files,
             partition_stats,
             schema_id,
+            min_bucket: None,
+            max_bucket: None,
+            min_level: None,
+            max_level: None,
         }
     }
 }
