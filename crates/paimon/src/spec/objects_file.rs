@@ -60,6 +60,7 @@ mod tests {
                     BinaryTableStats::new(value_bytes.clone(), value_bytes.clone(), vec![1, 2]),
                     1
                 ),
+
                 ManifestFileMeta::new(
                     "manifest-a703ee48-c411-413e-b84e-c03bdb179631".to_string(),
                     11,
